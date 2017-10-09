@@ -25,8 +25,22 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(50.0f,50.0f),Vec2(300.0f,300.0f))
+	ball(Vec2(400.0f,400.0f),Vec2(300.0f,300.0f))
 {
+	Vec2 GridStart = Vec2( 10.0f, 10.0f );
+	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Yellow };
+	int i = 0;
+	for( int x = 0; x < cols; x++ )
+	{
+		for( int y = 0; y < rows; y++ )
+		{
+			Color c = rowColors[y];
+			float brick_x = GridStart.x + ( x * brickWidth );
+			float brick_y = GridStart.y + ( y * brickHeight );
+			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth, brickHeight ), c );
+			i++;
+		}
+	}
 }
 
 void Game::Go()
@@ -42,9 +56,21 @@ void Game::UpdateModel()
 	const float dt = ft.Mark();
 	ball.Update( dt );
 	ball.ReboundFromWalls(walls);
+	for( int i = 0; i < nBricks; i++ )
+	{
+		if( bricks[i].ColidedWithBall( ball ) )
+		{
+			break;
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
 	ball.Draw( gfx );
+
+	for( int i = 0; i < nBricks; i++ )
+	{
+		bricks[i].Draw( gfx );
+	}
 }
