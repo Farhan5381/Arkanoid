@@ -21,6 +21,11 @@ RectF::RectF( const Vec2 & top_left, const float & width, const float & height )
 {
 }
 
+RectF RectF::FromCenter( const Vec2 & center_pos, const float & halfWidth, const float & halfHeight )
+{
+	return RectF( center_pos.y - halfHeight, center_pos.x + halfWidth, center_pos.y + halfHeight, center_pos.x - halfWidth );
+}
+
 bool RectF::isColidingRect( const RectF & rect )
 {
 	return 
