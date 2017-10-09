@@ -46,5 +46,6 @@ private:
 	/*  User Variables              */
 	FrameTimer ft;
 	Ball ball;
+	RectF walls = RectF( Vec2( 0.0f, 0.0f ), Vec2( float( gfx.ScreenWidth ), float( gfx.ScreenHeight ) ) );
 	/********************************/
 };
