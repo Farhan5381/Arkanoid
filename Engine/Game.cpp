@@ -25,7 +25,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(400.0f,400.0f),Vec2(300.0f,300.0f))
+	ball(Vec2(560.0f,560.0f),Vec2(200.0f,200.0f))
 {
 	Vec2 GridStart = Vec2( 10.0f, 10.0f );
 	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Yellow };
