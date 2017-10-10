@@ -51,7 +51,7 @@ private:
 	static constexpr float brickWidth = 40.0f;
 	static constexpr float brickHeight = 25.0f;
 	static constexpr int rows = 4;
-	static constexpr int cols = 10;
+	static constexpr int cols = 19;
 	static constexpr int nBricks = rows * cols;
 	Brick bricks[nBricks];
 	/********************************/

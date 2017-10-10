@@ -66,8 +66,9 @@ bool Brick::ColidedWithBall( Ball & ball )
 
 void Brick::Draw( Graphics& gfx )
 {
+	RectF newRect = RectF( rect.top + 2.0f, rect.right - 2.0f, rect.bottom - 2.0f, rect.left + 2.0f );
 	if( !destroyed )
 	{
-		gfx.DrawRect( rect, c );
+		gfx.DrawRect( newRect, c );
 	}
 }

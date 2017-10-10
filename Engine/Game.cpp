@@ -27,8 +27,8 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	ball(Vec2(560.0f,560.0f),Vec2(200.0f,200.0f))
 {
-	Vec2 GridStart = Vec2( 10.0f, 10.0f );
-	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Yellow };
+	Vec2 GridStart = Vec2( 20.0f, 20.0f );
+	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Gray };
 	int i = 0;
 	for( int x = 0; x < cols; x++ )
 	{
@@ -37,7 +37,7 @@ Game::Game( MainWindow& wnd )
 			Color c = rowColors[y];
 			float brick_x = GridStart.x + ( x * brickWidth );
 			float brick_y = GridStart.y + ( y * brickHeight );
-			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth, brickHeight ), c );
+			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth , brickHeight ), c );
 			i++;
 		}
 	}
