@@ -13,53 +13,33 @@ bool Brick::ColidedWithBall( Ball & ball )
 	if( !destroyed && rect.isColidingRect( ball.GetRect() ) )
 	{
 		destroyed = true;
-
-		if( ball.GetVelocity().x > 0.0f &&  ball.GetVelocity().y > 0.0f )
-		{
-			if( rect.top > ball.GetRect().bottom )
-			{
-				ball.ReboundY();
-			}
-			else if( rect.left > ball.GetRect().right )
-			{
-				ball.ReboundX();
-			}
-		}
-		else if( ball.GetVelocity().x < 0.0f &&  ball.GetVelocity().y > 0.0f )
-		{
-			if( rect.top > ball.GetRect().bottom )
-			{
-				ball.ReboundY();
-			}
-			else if( rect.right > ball.GetRect().left )
-			{
-				ball.ReboundX();
-			}
-		}
-		else if( ball.GetVelocity().x < 0.0f &&  ball.GetVelocity().y < 0.0f )
-		{
-			if( rect.bottom > ball.GetRect().top )
-			{
-				ball.ReboundY();
-			}
-			else if( rect.right > ball.GetRect().left )
-			{
-				ball.ReboundX();
-			}
-		}
-		else if( ball.GetVelocity().x > 0.0f &&  ball.GetVelocity().y < 0.0f )
-		{
-			if( rect.bottom > ball.GetRect().top )
-			{
-				ball.ReboundY();
-			}
-			else if( rect.left > ball.GetRect().right )
-			{
-				ball.ReboundX();
-			}
-		}
-
 		coliding = true;
+
+		const float b_collision = rect.bottom - ball.GetRect().top;
+		const float t_collision = ball.GetRect().bottom - rect.top;
+		const float l_collision = ball.GetRect().right - rect.left;
+		const float r_collision = rect.right - ball.GetRect().left;
+
+		if( t_collision < b_collision && t_collision < l_collision && t_collision < r_collision )
+		{
+			//Top collision
+			ball.ReboundY();
+		}
+		if( b_collision < t_collision && b_collision < l_collision && b_collision < r_collision )
+		{
+			//bottom collision
+			ball.ReboundY();
+		}
+		if( l_collision < r_collision && l_collision < t_collision && l_collision < b_collision )
+		{
+			//Left collision
+			ball.ReboundX();
+		}
+		if( r_collision < l_collision && r_collision < t_collision && r_collision < b_collision )
+		{
+			//Right collision
+			ball.ReboundX();
+		}
 	}
 	return coliding;
 }
