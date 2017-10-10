@@ -14,21 +14,49 @@ bool Brick::ColidedWithBall( Ball & ball )
 	{
 		destroyed = true;
 
-		if( rect.top > ball.GetRect().bottom )
+		if( ball.GetVelocity().x > 0.0f &&  ball.GetVelocity().y > 0.0f )
 		{
-			ball.ReboundY();
+			if( rect.top > ball.GetRect().bottom )
+			{
+				ball.ReboundY();
+			}
+			else if( rect.left > ball.GetRect().right )
+			{
+				ball.ReboundX();
+			}
 		}
-		else if( rect.bottom > ball.GetRect().top )
+		else if( ball.GetVelocity().x < 0.0f &&  ball.GetVelocity().y > 0.0f )
 		{
-			ball.ReboundY();
+			if( rect.top > ball.GetRect().bottom )
+			{
+				ball.ReboundY();
+			}
+			else if( rect.right > ball.GetRect().left )
+			{
+				ball.ReboundX();
+			}
 		}
-		else if( rect.left > ball.GetRect().right )
+		else if( ball.GetVelocity().x < 0.0f &&  ball.GetVelocity().y < 0.0f )
 		{
-			ball.ReboundX();
+			if( rect.bottom > ball.GetRect().top )
+			{
+				ball.ReboundY();
+			}
+			else if( rect.right > ball.GetRect().left )
+			{
+				ball.ReboundX();
+			}
 		}
-		else if( rect.right > ball.GetRect().left )
+		else if( ball.GetVelocity().x > 0.0f &&  ball.GetVelocity().y < 0.0f )
 		{
-			ball.ReboundX();
+			if( rect.bottom > ball.GetRect().top )
+			{
+				ball.ReboundY();
+			}
+			else if( rect.left > ball.GetRect().right )
+			{
+				ball.ReboundX();
+			}
 		}
 
 		coliding = true;

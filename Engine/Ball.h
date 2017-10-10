@@ -12,6 +12,8 @@ public:
 	void ReboundY();
 	void Draw( Graphics& gfx ) const;
 	RectF GetRect() const;
+	Vec2 GetVelocity() const;
+
 private:
 	static constexpr float radius = 7.0f;
 	Vec2 pos;
