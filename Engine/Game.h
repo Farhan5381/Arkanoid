@@ -26,6 +26,7 @@
 #include "FrameTimer.h"
 #include "Ball.h"
 #include "Brick.h"
+#include "Pad.h"
 
 class Game
 {
@@ -47,6 +48,7 @@ private:
 	/*  User Variables              */
 	FrameTimer ft;
 	Ball ball;
+	Pad pad;
 	RectF walls = RectF( Vec2( 0.0f, 0.0f ), Vec2( float( gfx.ScreenWidth ), float( gfx.ScreenHeight ) ) );
 	static constexpr float brickWidth = 40.0f;
 	static constexpr float brickHeight = 25.0f;

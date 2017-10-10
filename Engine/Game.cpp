@@ -25,7 +25,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(560.0f,560.0f),Vec2(200.0f,200.0f))
+	ball(Vec2(560.0f,560.0f),Vec2(200.0f,200.0f)),
+	pad(Vec2(350.0f,500.0f),120.0f,30.0f)
 {
 	Vec2 GridStart = Vec2( 20.0f, 20.0f );
 	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Gray };
@@ -55,7 +56,10 @@ void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
 	ball.Update( dt );
-	ball.ReboundFromWalls(walls);
+	ball.ReboundFromWalls( walls );
+	pad.Update( wnd.kbd, dt );
+	pad.DoWallColision( walls );
+	pad.DoBallColision( ball );
 	for( int i = 0; i < nBricks; i++ )
 	{
 		if( bricks[i].ColidedWithBall( ball ) )
@@ -68,6 +72,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	ball.Draw( gfx );
+	pad.Draw( gfx );
 
 	for( int i = 0; i < nBricks; i++ )
 	{
