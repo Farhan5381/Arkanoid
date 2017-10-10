@@ -33,8 +33,9 @@ void Pad::DoWallColision( const RectF & walls )
 	}
 }
 
-void Pad::DoBallColision( Ball & ball )
+bool Pad::DoBallColision( Ball & ball )
 {
+	bool colided = false;
 	RectF rect = GetRect();
 
 	if( rect.isColidingRect( ball.GetRect() ) )
@@ -48,7 +49,7 @@ void Pad::DoBallColision( Ball & ball )
 		{
 			//Top collision
 			ball.ReboundY();
-			pos.y = ball.GetRect().bottom - halfWidth;
+			colided = true;
 		}
 		/*if( b_collision < t_collision && b_collision < l_collision && b_collision < r_collision )
 		{
@@ -60,6 +61,7 @@ void Pad::DoBallColision( Ball & ball )
 			ball.ReboundX();
 			ball.ReboundY();
 			pos.x = ball.GetRect().right + halfWidth;
+			colided = true;
 		}
 		else if( r_collision < l_collision && r_collision < t_collision && r_collision < b_collision )
 		{
@@ -68,8 +70,10 @@ void Pad::DoBallColision( Ball & ball )
 			ball.ReboundY();
 			pos.x = ball.GetRect().left - halfWidth;
 
+			colided = true;
 		}
 	}
+	return colided;
 }
 
 void Pad::Draw( Graphics & gfx )

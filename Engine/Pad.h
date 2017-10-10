@@ -10,7 +10,7 @@ public:
 	Pad( const Vec2& pos_in, float width, float height);
 	void Update( const Keyboard& kbd, float dt );
 	void DoWallColision( const RectF& walls );
-	void DoBallColision( Ball& ball );
+	bool DoBallColision( Ball& ball );
 	void Draw( Graphics& gfx );
 	RectF GetRect() const;
 

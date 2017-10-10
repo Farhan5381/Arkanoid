@@ -27,6 +27,7 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Pad.h"
+#include "Sound.h"
 
 class Game
 {
@@ -56,5 +57,9 @@ private:
 	static constexpr int cols = 19;
 	static constexpr int nBricks = rows * cols;
 	Brick bricks[nBricks];
+	Sound brickSound;
+	Sound padSound;
+	bool isGameOver = false;
+	bool isGameStarted = false;
 	/********************************/
 };

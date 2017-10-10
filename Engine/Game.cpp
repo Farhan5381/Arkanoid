@@ -25,8 +25,10 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(560.0f,560.0f),Vec2(200.0f,200.0f)),
-	pad(Vec2(350.0f,500.0f),120.0f,30.0f)
+	ball(Vec2(400.0f,475.0f),Vec2(-150.0f,-150.0f)),
+	pad(Vec2(400.0f,500.0f),120.0f,30.0f),
+	brickSound( L"Sounds\\arkbrick.wav" ),
+	padSound(L"Sounds\\arkpad.wav")
 {
 	Vec2 GridStart = Vec2( 20.0f, 20.0f );
 	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Gray };
@@ -55,16 +57,34 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	ball.Update( dt );
-	ball.ReboundFromWalls( walls );
-	pad.Update( wnd.kbd, dt );
-	pad.DoWallColision( walls );
-	pad.DoBallColision( ball );
-	for( int i = 0; i < nBricks; i++ )
+	if( isGameStarted && !isGameOver )
 	{
-		if( bricks[i].ColidedWithBall( ball ) )
+		isGameOver = ball.GetOutOfBounds();
+		ball.Update( dt );
+		if( ball.ReboundFromWalls( walls ) )
 		{
-			break;
+			padSound.Play();
+		}
+		pad.Update( wnd.kbd, dt );
+		pad.DoWallColision( walls );
+		if( pad.DoBallColision( ball ) )
+		{
+			padSound.Play();
+		}
+		for( int i = 0; i < nBricks; i++ )
+		{
+			if( bricks[i].ColidedWithBall( ball ) )
+			{
+				brickSound.Play();
+				break;
+			}
+		}
+	}
+	else
+	{
+		if( wnd.kbd.KeyIsPressed( VK_RETURN ) )
+		{
+			isGameStarted = true;
 		}
 	}
 }
