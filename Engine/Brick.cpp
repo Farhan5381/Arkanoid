@@ -1,10 +1,11 @@
 #include "Brick.h"
 #include <assert.h>
 
-Brick::Brick( const RectF & rect_in, Color c_in )
+Brick::Brick( const RectF & rect_in, Color c_in, bool createBrick )
 	:
 	rect(rect_in),
-	c(c_in)
+	c(c_in),
+	destroyed(!createBrick)
 {
 }
 

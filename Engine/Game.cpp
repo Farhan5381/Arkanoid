@@ -40,7 +40,7 @@ Game::Game( MainWindow& wnd )
 			Color c = rowColors[y];
 			float brick_x = GridStart.x + ( x * brickWidth );
 			float brick_y = GridStart.y + ( y * brickHeight );
-			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth , brickHeight ), c );
+			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth, brickHeight ), c, true );
 			i++;
 		}
 	}

@@ -7,7 +7,7 @@ class Brick
 {
 public:
 	Brick() = default;
-	Brick( const RectF& rect_in, Color c_in);
+	Brick( const RectF& rect_in, Color c_in, bool createBrick);
 	bool CheckBallCollision( const Ball& ball ) const;
 	void DoBallCollision( Ball& ball );
 	void Draw(Graphics& gfx);
@@ -17,5 +17,5 @@ private:
 	static constexpr float padding = 1.0f;
 	RectF rect;
 	Color c;
-	bool destroyed = false;
+	bool destroyed = true;
 };
