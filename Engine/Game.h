@@ -51,18 +51,18 @@ private:
 	Ball ball;
 	Pad pad;
 	static constexpr int wallWidth = 11;
-	RectF outerwalls = RectF( Vec2( 75.0f, 0.0f ), Vec2( 725.0f, 600.0f ) );
+	RectF outerwalls = RectF( Vec2( 55.0f, 0.0f ), Vec2( 745.0f, 600.0f ) );
 	RectF innerwalls = outerwalls.GetScaled( -wallWidth );
-	Vec2 GridStart = Vec2( outerwalls.left + wallWidth + 5, outerwalls.top + wallWidth + 5 );
-	Vec2 GridEnd = Vec2( outerwalls.right - wallWidth - 5, outerwalls.bottom - wallWidth - 5 );
-	static constexpr float brickWidth = 31.0f;
-	static constexpr float brickHeight = 15.0f;
-	static constexpr int rows = 4;
+	Vec2 GridStart = Vec2( innerwalls.left + 4, innerwalls.top + 10);
+	Vec2 GridEnd = Vec2( innerwalls.right, innerwalls.bottom);
+	static constexpr int rows = 5;
 	static constexpr int cols = 20;
 	static constexpr int nBricks = rows * cols;
+	static constexpr float rowOffset = 25.0f;
 	Brick bricks[nBricks];
 	Sound brickSound;
 	Sound padSound;
+	int lives = 3;
 	bool isGameOver = false;
 	bool isGameStarted = false;
 	/********************************/

@@ -1,5 +1,4 @@
 #include "Ball.h"
-#include "SpriteCodex.h"
 
 Ball::Ball( const Vec2 & pos_in, const Vec2 & velocity_in )
 	:

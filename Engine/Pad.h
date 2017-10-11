@@ -3,7 +3,6 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Ball.h"
-#include "SpriteCodex.h"
 
 class Pad
 {
@@ -17,7 +16,7 @@ public:
 	void SetPadId( int Id );
 
 private:
-	Vec2 pos = Vec2( 400.0f, 500.0f );
+	Vec2 pos = Vec2( 340.0f, 500.0f );
 	int padId = 1;
 	float width = 120.0f;
 	static constexpr float height = 20.0f;

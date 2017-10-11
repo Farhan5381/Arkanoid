@@ -20,25 +20,24 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SpriteCodex.h"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(400.0f,475.0f),Vec2(-125.0f,-125.0f)),
+	ball(Vec2(391.0f,480.0f),Vec2(-125.0f,-125.0f)),
 	brickSound( L"Sounds\\arkbrick.wav" ),
 	padSound(L"Sounds\\arkpad.wav")
 {
-	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Gray };
 	int i = 0;
 	for( int x = 0; x < cols; x++ )
 	{
 		for( int y = 0; y < rows; y++ )
 		{
-			Color c = rowColors[y];
-			float brick_x = GridStart.x + ( x * brickWidth );
-			float brick_y = GridStart.y + ( y * brickHeight );
-			bricks[i] = Brick( RectF( Vec2( brick_x, brick_y ), brickWidth, brickHeight ), c, true );
+			float brick_x = GridStart.x + ( float (x) * (Brick::GetDimension().x + 2));
+			float brick_y = GridStart.y + ( float (y) * (Brick::GetDimension().y + rowOffset) );
+			bricks[i] = Brick( Vec2( brick_x, brick_y ), y, true );
 			i++;
 		}
 	}
