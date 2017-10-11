@@ -34,3 +34,8 @@ bool RectF::isColidingRect( const RectF & rect )
 		bottom >= rect.top &&
 		left <= rect.right;
 }
+
+RectF RectF::GetScaled( float offset ) const
+{
+	return RectF( top - offset, right + offset, bottom + offset, left - offset );
+}

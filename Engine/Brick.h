@@ -12,6 +12,7 @@ public:
 	void Draw(Graphics& gfx);
 
 private:
+	static constexpr float padding = 1.0f;
 	RectF rect;
 	Color c;
 	bool destroyed = false;
