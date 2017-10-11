@@ -168,20 +168,32 @@ void Game::UpdateModel(float dt)
 
 void Game::ComposeFrame()
 {
-	// Drawing walls
-	gfx.DrawRect( outerwalls, Colors::Cyan );
-	gfx.DrawRect( innerwalls, Colors::Black );
-	pad.Draw( gfx );
-	ball.Draw( gfx );
-	
-	for( int i = 0; i < nBricks; i++ )
+	if( !isGameOver && isGameStarted )
 	{
-		bricks[i].Draw( gfx );
-	}
+		// Drawing walls
+		gfx.DrawRect( outerwalls, Colors::Cyan );
+		gfx.DrawRect( innerwalls, Colors::Black );
+		pad.Draw( gfx );
+		ball.Draw( gfx );
 
-	for( int i = 0; i < lives; i++ )
+		for( int i = 0; i < nBricks; i++ )
+		{
+			bricks[i].Draw( gfx );
+		}
+
+		for( int i = 0; i < lives; i++ )
+		{
+			Vec2 livesPos = Vec2( innerwalls.left + 20.0f + ( i * 20 ), pad.GetRect().bottom + 25.0f );
+			SpriteCodex::DrawBallFlame( livesPos, gfx );
+		}
+	}
+	else if ( !isGameStarted )
 	{
-		Vec2 livesPos = Vec2( innerwalls.left + 20.0f + ( i * 20 ), pad.GetRect().bottom + 25.0f );
-		SpriteCodex::DrawBallFlame( livesPos, gfx );
+		SpriteCodex::DrawTitleScreen( Vec2( 220.0f, 145.0f ), gfx );
+	}
+	else if( isGameOver )
+	{
+		SpriteCodex::DrawGameOverScreen( Vec2( 240.0f, 172.0f ), gfx );
+
 	}
 }

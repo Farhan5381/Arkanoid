@@ -7,6 +7,7 @@ class SpriteCodex
 {
 public:
 	// centered drawing of 14x14 sprite
+	static void DrawTitleScreen( const Vec2& top_left, Graphics& gfx );
 	static void DrawBallNormal( const Vec2& top_left, Graphics& gfx );
 	static void DrawBallFlame( const Vec2& top_left, Graphics& gfx );
 	static void DrawpadNormal( const Vec2& top_left, Graphics& gfx );
@@ -21,4 +22,5 @@ public:
 	static void DrawContractPowerup( const Vec2& top_left, Graphics& gfx );
 	static void DrawMultiplyBallPowerup( const Vec2& top_left, Graphics& gfx );
 	static void DrawFlamingBallPowerup( const Vec2& top_left, Graphics& gfx );
+	static void DrawGameOverScreen( const Vec2& top_left, Graphics& gfx );
 };
