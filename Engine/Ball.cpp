@@ -57,7 +57,7 @@ void Ball::ReboundY()
 
 void Ball::Draw(Graphics& gfx) const
 {
-	SpriteCodex::DrawBall( pos, gfx );
+	SpriteCodex::DrawBallNormal( pos, gfx );
 }
 
 RectF Ball::GetRect() const

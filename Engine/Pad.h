@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Ball.h"
+#include "SpriteCodex.h"
 
 class Pad
 {
@@ -13,14 +14,13 @@ public:
 	void Draw( Graphics& gfx );
 	RectF GetRect() const;
 	void ResetCoolDown();
+	void SetPadId( int Id );
 
 private:
 	Vec2 pos = Vec2( 400.0f, 500.0f );
-	float halfWidth = 40.0f;
-	float halfHeight = 10.0f;
-	float wingWidth = (20.0f/100.0f) * ( halfWidth * 2.0f);
-	float speed = 200.0f;
-	Color padColor = Colors::Gray;
-	Color wingColor = Colors::LightGray;
+	int padId = 1;
+	float width = 120.0f;
+	static constexpr float height = 20.0f;
+	static constexpr float speed = 200.0f;
 	bool isCoolDown = false;
 };

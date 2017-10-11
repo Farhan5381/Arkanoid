@@ -65,8 +65,20 @@ void Game::UpdateModel(float dt)
 		isGameOver = ball.GetOutOfBounds();
 		ball.Update( dt );
 		pad.Update( wnd.kbd, dt );
-		pad.DoWallColision( walls );
+		pad.DoWallColision( innerwalls );
 		
+		if( wnd.kbd.KeyIsPressed( VK_NUMPAD0 ) )
+		{
+			pad.SetPadId( 0 );
+		}
+		else if( wnd.kbd.KeyIsPressed( VK_NUMPAD1 ) )
+		{
+			pad.SetPadId( 1 );
+		}
+		else if ( wnd.kbd.KeyIsPressed(VK_NUMPAD2) )
+		{
+			pad.SetPadId( 2 );
+		}
 
 		/*
 			Check the ball collision with the brick and determine which has collision has least amount
@@ -112,7 +124,7 @@ void Game::UpdateModel(float dt)
 		{
 			padSound.Play();
 		}
-		if( ball.ReboundFromWalls( walls ) )
+		if( ball.ReboundFromWalls( innerwalls ) )
 		{
 			pad.ResetCoolDown();
 			padSound.Play();
@@ -130,11 +142,11 @@ void Game::UpdateModel(float dt)
 void Game::ComposeFrame()
 {
 	// Drawing walls
-	gfx.DrawRect( walls, Colors::Cyan );
-	gfx.DrawRect( walls.GetScaled(-wallWidth), Colors::Black );
+	gfx.DrawRect( outerwalls, Colors::Cyan );
+	gfx.DrawRect( innerwalls, Colors::Black );
 	pad.Draw( gfx );
 	ball.Draw( gfx );
-
+	
 	for( int i = 0; i < nBricks; i++ )
 	{
 		bricks[i].Draw( gfx );

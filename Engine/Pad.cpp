@@ -17,11 +17,11 @@ void Pad::DoWallColision( const RectF & walls )
 	RectF rect = GetRect();
 	if( rect.left < walls.left )
 	{
-		pos.x = walls.left + halfWidth;
+		pos.x = walls.left;
 	}
 	else if( rect.right > walls.right )
 	{
-		pos.x = walls.right - halfWidth;
+		pos.x = walls.right - width;
 	}
 }
 
@@ -69,18 +69,34 @@ bool Pad::DoBallColision( Ball & ball )
 
 void Pad::Draw( Graphics & gfx )
 {
-	RectF outerRect = GetRect();
-	RectF innerRect = RectF( Vec2( outerRect.left + wingWidth, outerRect.top ), Vec2( outerRect.right - wingWidth, outerRect.bottom ) );
-	gfx.DrawRect( outerRect, wingColor );
-	gfx.DrawRect( innerRect, padColor );
+	switch( padId )
+	{
+	case 0:
+		SpriteCodex::DrawpadSmall( pos, gfx );
+		width = 70.0f;
+		break;
+	case 1:
+		SpriteCodex::DrawpadNormal( pos, gfx );
+		width = 120.0f;
+		break;
+	case 2:
+		SpriteCodex::DrawpadBig( pos, gfx );
+		width = 170.0f;
+		break;
+	}
 }
 
 RectF Pad::GetRect() const
 {
-	return RectF::FromCenter( pos, halfWidth, halfHeight );
+	return RectF(pos,width,height);
 }
 
 void Pad::ResetCoolDown()
 {
 	isCoolDown = false;
+}
+
+void Pad::SetPadId( int Id )
+{
+	padId = Id;
 }

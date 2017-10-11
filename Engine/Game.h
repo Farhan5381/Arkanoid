@@ -50,10 +50,11 @@ private:
 	FrameTimer ft;
 	Ball ball;
 	Pad pad;
-	RectF walls = RectF( Vec2( 75.0f, 0.0f ), Vec2( 725.0f, 600.0f ) );
-	Vec2 GridStart = Vec2( walls.left + wallWidth + 5, walls.top + wallWidth + 5 );
-	Vec2 GridEnd = Vec2( walls.right - wallWidth - 5, walls.bottom - wallWidth - 5 );
 	static constexpr int wallWidth = 11;
+	RectF outerwalls = RectF( Vec2( 75.0f, 0.0f ), Vec2( 725.0f, 600.0f ) );
+	RectF innerwalls = outerwalls.GetScaled( -wallWidth );
+	Vec2 GridStart = Vec2( outerwalls.left + wallWidth + 5, outerwalls.top + wallWidth + 5 );
+	Vec2 GridEnd = Vec2( outerwalls.right - wallWidth - 5, outerwalls.bottom - wallWidth - 5 );
 	static constexpr float brickWidth = 31.0f;
 	static constexpr float brickHeight = 15.0f;
 	static constexpr int rows = 4;
