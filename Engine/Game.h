@@ -62,8 +62,11 @@ private:
 	Brick bricks[nBricks];
 	Sound brickSound;
 	Sound padSound;
-	int lives = 3;
+	Sound lifelost;
+	Sound gameOverSound;
+	int lives = 5;
 	bool isGameOver = false;
 	bool isGameStarted = false;
+	bool gameIsPaused = false;
 	/********************************/
 };

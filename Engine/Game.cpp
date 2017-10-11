@@ -28,7 +28,9 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	ball(Vec2(391.0f,480.0f),Vec2(-125.0f,-125.0f)),
 	brickSound( L"Sounds\\arkbrick.wav" ),
-	padSound(L"Sounds\\arkpad.wav")
+	padSound(L"Sounds\\arkpad.wav"),
+	lifelost( L"Sounds\\ah.wav" ),
+	gameOverSound(L"Sounds\\gameOver.wav")
 {
 	int i = 0;
 	for( int x = 0; x < cols; x++ )
@@ -59,9 +61,8 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
-	if( isGameStarted && !isGameOver )
+	if( isGameStarted && !isGameOver && !gameIsPaused )
 	{
-		isGameOver = ball.GetOutOfBounds();
 		ball.Update( dt );
 		pad.Update( wnd.kbd, dt );
 		pad.DoWallColision( innerwalls );
@@ -132,12 +133,35 @@ void Game::UpdateModel(float dt)
 			pad.ResetCoolDown();
 			padSound.Play();
 		}
+
+		/*
+			Life reduction and GameOver check
+		*/
+
+		
+		if( ball.GetOutOfBounds() )
+		{
+			lives--;
+			if( lives > 0 )
+			{
+				lifelost.Play();
+				pad = Pad();
+				ball = Ball( Vec2( 391.0f, 480.0f ), Vec2( -125.0f, -125.0f ) );
+				gameIsPaused = true;
+			}
+			else
+			{
+				gameOverSound.Play();
+				isGameOver = true;
+			}
+		}
 	}
 	else
 	{
 		if( wnd.kbd.KeyIsPressed( VK_RETURN ) )
 		{
 			isGameStarted = true;
+			gameIsPaused = false;
 		}
 	}
 }
@@ -153,5 +177,11 @@ void Game::ComposeFrame()
 	for( int i = 0; i < nBricks; i++ )
 	{
 		bricks[i].Draw( gfx );
+	}
+
+	for( int i = 0; i < lives; i++ )
+	{
+		Vec2 livesPos = Vec2( innerwalls.left + 20.0f + ( i * 20 ), pad.GetRect().bottom + 25.0f );
+		SpriteCodex::DrawBallFlame( livesPos, gfx );
 	}
 }
