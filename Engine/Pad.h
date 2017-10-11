@@ -7,7 +7,6 @@
 class Pad
 {
 public:
-	Pad( const Vec2& pos_in, float width, float height);
 	void Update( const Keyboard& kbd, float dt );
 	void DoWallColision( const RectF& walls );
 	bool DoBallColision( Ball& ball );
@@ -16,11 +15,11 @@ public:
 	void ResetCoolDown();
 
 private:
-	Vec2 pos;
-	float halfWidth;
-	float halfHeight;
-	float wingWidth = 25.0f;
-	float speed = 300.0f;
+	Vec2 pos = Vec2( 400.0f, 500.0f );
+	float halfWidth = 40.0f;
+	float halfHeight = 10.0f;
+	float wingWidth = (20.0f/100.0f) * ( halfWidth * 2.0f);
+	float speed = 200.0f;
 	Color padColor = Colors::Gray;
 	Color wingColor = Colors::LightGray;
 	bool isCoolDown = false;

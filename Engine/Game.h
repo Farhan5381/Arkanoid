@@ -38,7 +38,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
-	void UpdateModel();
+	void UpdateModel( float dt );
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -50,11 +50,14 @@ private:
 	FrameTimer ft;
 	Ball ball;
 	Pad pad;
-	RectF walls = RectF( Vec2( 0.0f, 0.0f ), Vec2( float( gfx.ScreenWidth ), float( gfx.ScreenHeight ) ) );
-	static constexpr float brickWidth = 40.0f;
-	static constexpr float brickHeight = 25.0f;
+	RectF walls = RectF( Vec2( 75.0f, 0.0f ), Vec2( 725.0f, 600.0f ) );
+	Vec2 GridStart = Vec2( walls.left + wallWidth + 5, walls.top + wallWidth + 5 );
+	Vec2 GridEnd = Vec2( walls.right - wallWidth - 5, walls.bottom - wallWidth - 5 );
+	static constexpr int wallWidth = 11;
+	static constexpr float brickWidth = 31.0f;
+	static constexpr float brickHeight = 15.0f;
 	static constexpr int rows = 4;
-	static constexpr int cols = 19;
+	static constexpr int cols = 20;
 	static constexpr int nBricks = rows * cols;
 	Brick bricks[nBricks];
 	Sound brickSound;

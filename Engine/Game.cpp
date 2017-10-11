@@ -26,11 +26,9 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	ball(Vec2(400.0f,475.0f),Vec2(-125.0f,-125.0f)),
-	pad(Vec2(400.0f,500.0f),120.0f,30.0f),
 	brickSound( L"Sounds\\arkbrick.wav" ),
 	padSound(L"Sounds\\arkpad.wav")
 {
-	Vec2 GridStart = Vec2( 20.0f, 20.0f );
 	Color rowColors[rows] = { Colors::Red,Colors::Green,Colors::Blue,Colors::Gray };
 	int i = 0;
 	for( int x = 0; x < cols; x++ )
@@ -48,15 +46,20 @@ Game::Game( MainWindow& wnd )
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
-	UpdateModel();
+	gfx.BeginFrame();
+	float elapsedTime = ft.Mark();
+	while( elapsedTime > 0.0f )
+	{
+		const float dt = std::min( 0.025f, elapsedTime );
+		UpdateModel( dt );
+		elapsedTime -= dt;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
-	const float dt = ft.Mark();
 	if( isGameStarted && !isGameOver )
 	{
 		isGameOver = ball.GetOutOfBounds();
@@ -126,8 +129,11 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	ball.Draw( gfx );
+	// Drawing walls
+	gfx.DrawRect( walls, Colors::Cyan );
+	gfx.DrawRect( walls.GetScaled(-wallWidth), Colors::Black );
 	pad.Draw( gfx );
+	ball.Draw( gfx );
 
 	for( int i = 0; i < nBricks; i++ )
 	{

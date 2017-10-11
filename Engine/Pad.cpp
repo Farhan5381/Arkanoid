@@ -1,13 +1,5 @@
 #include "Pad.h"
 
-Pad::Pad( const Vec2 & pos_in, float width_in, float height_in )
-	:
-	pos( pos_in ),
-	halfWidth(width_in/2),
-	halfHeight(height_in/2)
-{
-}
-
 void Pad::Update( const Keyboard & kbd, float dt )
 {
 	if( kbd.KeyIsPressed( VK_LEFT ) )
@@ -54,7 +46,7 @@ bool Pad::DoBallColision( Ball & ball )
 			if( b_collision < t_collision && b_collision < l_collision && b_collision < r_collision )
 			{
 				//bottom collision
-				ball.ReboundY();
+				//ball.ReboundY();
 			}
 			else if( l_collision < r_collision && l_collision < t_collision && l_collision < b_collision )
 			{
