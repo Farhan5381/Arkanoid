@@ -26,7 +26,7 @@ RectF RectF::FromCenter( const Vec2 & center_pos, const float & halfWidth, const
 	return RectF( center_pos.y - halfHeight, center_pos.x + halfWidth, center_pos.y + halfHeight, center_pos.x - halfWidth );
 }
 
-bool RectF::isColidingRect( const RectF & rect )
+bool RectF::isColidingRect( const RectF & rect ) const
 {
 	return 
 		top <= rect.bottom &&
@@ -38,4 +38,9 @@ bool RectF::isColidingRect( const RectF & rect )
 RectF RectF::GetScaled( float offset ) const
 {
 	return RectF( top - offset, right + offset, bottom + offset, left - offset );
+}
+
+Vec2 RectF::GetCenter() const
+{
+	return Vec2( ( left + right ) / 2.0f, ( top + bottom ) / 2.0f );
 }

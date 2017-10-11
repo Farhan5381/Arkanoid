@@ -25,7 +25,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	ball(Vec2(400.0f,475.0f),Vec2(-150.0f,-150.0f)),
+	ball(Vec2(400.0f,475.0f),Vec2(-125.0f,-125.0f)),
 	pad(Vec2(400.0f,500.0f),120.0f,30.0f),
 	brickSound( L"Sounds\\arkbrick.wav" ),
 	padSound(L"Sounds\\arkpad.wav")
@@ -71,13 +71,45 @@ void Game::UpdateModel()
 		{
 			padSound.Play();
 		}
+
+		/*
+			Check the ball collision with the brick and determine which has collision has least amount
+			of distance between ball and brick center.
+		*/
+
+		bool collisionHappend = false;
+		float curColDistSq;
+		int curColIndex;
+
 		for( int i = 0; i < nBricks; i++ )
 		{
-			if( bricks[i].ColidedWithBall( ball ) )
+			if( bricks[i].CheckBallCollision( ball ) )
 			{
-				brickSound.Play();
-				break;
+				const float newColDistSq = (ball.GetRect().GetCenter() - bricks[i].GetCenter()).GetLengthSq();
+				if( collisionHappend )
+				{
+					if( newColDistSq < curColDistSq )
+					{
+						curColDistSq = newColDistSq;
+						curColIndex = i;
+					}
+				}
+				else
+				{
+					curColDistSq = newColDistSq;
+					curColIndex = i;
+					collisionHappend = true;
+				}
 			}
+		}
+		/*
+			execute the collision fuction on the brick whose distance is shorter to the ball. as calculated
+			from above
+		*/
+		if( collisionHappend )
+		{
+			bricks[curColIndex].DoBallCollision(ball);
+			brickSound.Play();
 		}
 	}
 	else
