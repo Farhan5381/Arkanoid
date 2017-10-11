@@ -36,40 +36,39 @@ void Pad::DoWallColision( const RectF & walls )
 bool Pad::DoBallColision( Ball & ball )
 {
 	bool colided = false;
-	RectF rect = GetRect();
-
-	if( rect.isColidingRect( ball.GetRect() ) )
+	if( !isCoolDown )
 	{
-		const float b_collision = rect.bottom - ball.GetRect().top;
-		const float t_collision = ball.GetRect().bottom - rect.top;
-		const float l_collision = ball.GetRect().right - rect.left;
-		const float r_collision = rect.right - ball.GetRect().left;
+		RectF rect = GetRect();
+		if( rect.isColidingRect( ball.GetRect() ) )
+		{
+			const float b_collision = rect.bottom - ball.GetRect().top;
+			const float t_collision = ball.GetRect().bottom - rect.top;
+			const float l_collision = ball.GetRect().right - rect.left;
+			const float r_collision = rect.right - ball.GetRect().left;
 
-		if( t_collision < b_collision && t_collision < l_collision && t_collision < r_collision )
-		{
-			//Top collision
-			ball.ReboundY();
-			colided = true;
-		}
-		/*if( b_collision < t_collision && b_collision < l_collision && b_collision < r_collision )
-		{
-			//bottom collision
-		}*/
-		else if( l_collision < r_collision && l_collision < t_collision && l_collision < b_collision )
-		{
-			//Left collision
-			ball.ReboundX();
-			ball.ReboundY();
-			pos.x = ball.GetRect().right + halfWidth;
-			colided = true;
-		}
-		else if( r_collision < l_collision && r_collision < t_collision && r_collision < b_collision )
-		{
-			//Right collision
-			ball.ReboundX();
-			ball.ReboundY();
-			pos.x = ball.GetRect().left - halfWidth;
-
+			if( t_collision < b_collision && t_collision < l_collision && t_collision < r_collision )
+			{
+				//Top collision
+				ball.ReboundY();
+			}
+			if( b_collision < t_collision && b_collision < l_collision && b_collision < r_collision )
+			{
+				//bottom collision
+				ball.ReboundY();
+			}
+			else if( l_collision < r_collision && l_collision < t_collision && l_collision < b_collision )
+			{
+				//Left collision
+				ball.ReboundX();
+				ball.ReboundY();
+			}
+			else if( r_collision < l_collision && r_collision < t_collision && r_collision < b_collision )
+			{
+				//Right collision
+				ball.ReboundX();
+				ball.ReboundY();
+			}
+			isCoolDown = true;
 			colided = true;
 		}
 	}
@@ -87,4 +86,9 @@ void Pad::Draw( Graphics & gfx )
 RectF Pad::GetRect() const
 {
 	return RectF::FromCenter( pos, halfWidth, halfHeight );
+}
+
+void Pad::ResetCoolDown()
+{
+	isCoolDown = false;
 }

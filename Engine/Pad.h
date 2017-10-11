@@ -13,7 +13,7 @@ public:
 	bool DoBallColision( Ball& ball );
 	void Draw( Graphics& gfx );
 	RectF GetRect() const;
-
+	void ResetCoolDown();
 
 private:
 	Vec2 pos;
@@ -23,4 +23,5 @@ private:
 	float speed = 300.0f;
 	Color padColor = Colors::Gray;
 	Color wingColor = Colors::LightGray;
+	bool isCoolDown = false;
 };

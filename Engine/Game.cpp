@@ -61,16 +61,9 @@ void Game::UpdateModel()
 	{
 		isGameOver = ball.GetOutOfBounds();
 		ball.Update( dt );
-		if( ball.ReboundFromWalls( walls ) )
-		{
-			padSound.Play();
-		}
 		pad.Update( wnd.kbd, dt );
 		pad.DoWallColision( walls );
-		if( pad.DoBallColision( ball ) )
-		{
-			padSound.Play();
-		}
+		
 
 		/*
 			Check the ball collision with the brick and determine which has collision has least amount
@@ -102,14 +95,24 @@ void Game::UpdateModel()
 				}
 			}
 		}
+
 		/*
-			execute the collision fuction on the brick whose distance is shorter to the ball. as calculated
-			from above
+			All collision which play sound are below
 		*/
 		if( collisionHappend )
 		{
 			bricks[curColIndex].DoBallCollision(ball);
 			brickSound.Play();
+			pad.ResetCoolDown();
+		}
+		if( pad.DoBallColision( ball ) )
+		{
+			padSound.Play();
+		}
+		if( ball.ReboundFromWalls( walls ) )
+		{
+			pad.ResetCoolDown();
+			padSound.Play();
 		}
 	}
 	else
