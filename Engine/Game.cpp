@@ -79,6 +79,10 @@ void Game::UpdateModel(float dt)
 		{
 			pad.SetPadId( 2 );
 		}
+		if( wnd.kbd.KeyIsPressed( VK_NUMPAD3 ) )
+		{
+			ball.SwapFlamingBallState();
+		}
 
 		/*
 			Check the ball collision with the brick and determine which has collision has least amount

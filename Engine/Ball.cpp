@@ -25,7 +25,7 @@ bool Ball::ReboundFromWalls( const RectF& walls )
 	}
 	else if( ballRect.right > walls.right )
 	{
-		pos.x = walls.right - radius;
+		pos.x = walls.right - (radius * 2);
 		ReboundX();
 		rebound = true;
 	}
@@ -38,7 +38,7 @@ bool Ball::ReboundFromWalls( const RectF& walls )
 	}
 	else if( ballRect.bottom > walls.bottom )
 	{
-		pos.y = walls.bottom - radius;
+		pos.y = walls.bottom - (radius * 2);
 		ReboundY();
 		outOfBounds = true;
 	}
@@ -57,12 +57,19 @@ void Ball::ReboundY()
 
 void Ball::Draw(Graphics& gfx) const
 {
-	SpriteCodex::DrawBallNormal( pos, gfx );
+	if( flamingBall )
+	{
+		SpriteCodex::DrawBallFlame( pos, gfx );
+	}
+	else
+	{
+		SpriteCodex::DrawBallNormal( pos, gfx );
+	}
 }
 
 RectF Ball::GetRect() const
 {
-	return RectF::FromCenter(pos,radius,radius);
+	return RectF(pos, radius * 2.0f, radius * 2.0f);
 }
 
 bool Ball::GetOutOfBounds() const
@@ -73,4 +80,21 @@ bool Ball::GetOutOfBounds() const
 void Ball::SetOutofBoundsFalse()
 {
 	outOfBounds = false;
+}
+
+void Ball::SwapFlamingBallState()
+{
+	if( flamingBall )
+	{
+		flamingBall = false;
+	}
+	else
+	{
+		flamingBall = true;
+	}
+}
+
+bool Ball::GetFlamingBallState()
+{
+	return flamingBall;
 }

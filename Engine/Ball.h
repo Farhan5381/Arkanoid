@@ -14,10 +14,13 @@ public:
 	RectF GetRect() const;
 	bool GetOutOfBounds() const;
 	void SetOutofBoundsFalse();
+	void SwapFlamingBallState();
+	bool GetFlamingBallState();
 
 private:
-	static constexpr float radius = 7.0f;
+	static constexpr float radius = 9.0f;
 	Vec2 pos;
 	Vec2 velocity;
+	bool flamingBall = false;
 	bool outOfBounds = false;
 };
